@@ -4,20 +4,33 @@
     <meta charset="UTF-8">
     <title>Vue.js Pokedex</title>
     <script src="https://unpkg.com/vue@next"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 <body>
     <div id="app">
-        {{ message }}
+        <h1>Welcome to the GEN 1 POKEDEX !!</h1>
+        <div id="pokedex" v-for="pokemon in pokedex">
+            <pokemon v-bind:poke="pokemon"></pokemon>
+        </div>
     </div>
 
     <script>
         const vm = Vue.createApp({
             data() {
                 return {
-                    message: "yo"
+                    // Get all gen 1 pokémons
+                    pokedex: axios.get('https://pokeapi.co/api/v2/pokemon?limit=151').then(response => this.pokedex = response.data.results)
                 }
             }
-        }).mount('#app');
+        })
+
+        // TODO : API call to get every information about the requested pokemon
+        vm.component('pokemon', {
+            props: ['poke'],
+            template: `<p>{{ poke }}</p>`
+        });
+
+        vm.mount('#app');
     </script>
 </body>
 </html>
