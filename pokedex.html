@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue.js Pokedex</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+    <div id="app">
+        {{ message }}
+    </div>
+
+    <script>
+        const vm = Vue.createApp({
+            data() {
+                return {
+                    message: "yo"
+                }
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>
