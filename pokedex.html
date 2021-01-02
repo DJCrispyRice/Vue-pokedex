@@ -9,8 +9,10 @@
 <body>
     <div id="app">
         <h1>Welcome to the GEN 1 POKEDEX !!</h1>
-        <div id="pokedex" v-for="pokemon in pokedex">
-            <pokemon v-bind:poke="pokemon"></pokemon>
+        <div id="pokedex">
+            <div class="pokemon" v-for="pokemon in pokedex">
+                <pokemon v-bind:pokemonurl="pokemon.url"></pokemon>
+            </div>
         </div>
     </div>
 
@@ -24,10 +26,20 @@
             }
         })
 
-        // TODO : API call to get every information about the requested pokemon
         vm.component('pokemon', {
-            props: ['poke'],
-            template: `<p>{{ poke }}</p>`
+            data() {
+                return {
+                    pokemonDetails: null
+                }
+            },
+            mounted() {
+                if (this.pokemonurl) {
+                    // To fetch information about the requested pokemon
+                    axios.get(this.pokemonurl).then(response => this.pokemonDetails = response.data);
+                }
+            },
+            props: ['pokemonurl'],
+            template: `<p v-if="pokemonDetails"><img v-bind:src="pokemonDetails.sprites.front_default"/>{{ pokemonDetails.name }}</p>`,
         });
 
         vm.mount('#app');
