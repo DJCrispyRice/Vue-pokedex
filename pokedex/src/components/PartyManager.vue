@@ -33,7 +33,12 @@
           alert("Your party is full, you can't add "+newPokemonName);
         }
         else {
-          axios.get('https://pokeapi.co/api/v2/pokemon/'+newPokemonName).then(response => this.currentTeam.push(response.data));
+          if (this.currentTeam.find(pokemon => pokemon.name === newPokemonName) || !newPokemonName) {
+            alert("This pokemon is already in your party !");
+          }
+          else {
+            axios.get('https://pokeapi.co/api/v2/pokemon/'+newPokemonName).then(response => this.currentTeam.push(response.data));
+          }
         }
       }
     },

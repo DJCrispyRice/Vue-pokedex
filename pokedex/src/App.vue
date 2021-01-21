@@ -1,5 +1,5 @@
 <template>
-  <h1>Welcome to the GEN 1 POKEDEX !!</h1>
+  <h1>Welcome to the GEN 1 POKEDEX !!!</h1>
   <div v-if="loading">
     <p>LOADING, PLEASE WAIT</p>
   </div>
@@ -48,7 +48,12 @@
         this.selectedPokemonName = pokemon.name;
       },
       addPokemonToParty(pokemon) {
-        this.pokemonToAdd = pokemon.name
+        if (this.pokemonToAdd === pokemon.name) {
+          this.pokemonToAdd = null;
+        }
+        else {
+          this.pokemonToAdd = pokemon.name;
+        }
       }
     },
   }
