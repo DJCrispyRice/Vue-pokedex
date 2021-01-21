@@ -1,10 +1,12 @@
 <template>
+  <h3>The viewer</h3>
   <div v-if="requestedPokemon">
     <h2>Here is everything about {{ requestedPokemon.name }}</h2>
     <img v-bind:src="requestedPokemon.sprites.front_default"/>
+    <button @click="clearViewer">Close viewer</button>
   </div>
   <div v-else>
-    Click a pokemon to see more infos about it
+    Click on a pokemon to see more infos about it
   </div>
 </template>
 
@@ -26,6 +28,12 @@
         this.pokemonNameCapitalized = this.pokemonname.charAt(0).toUpperCase() + this.pokemonname.slice(1)
       }
     },
+    methods: {
+      clearViewer() {
+        this.requestedPokemon = null;
+        this.pokemonNameCapitalized = null;
+      }
+    }
   }
 </script>
 

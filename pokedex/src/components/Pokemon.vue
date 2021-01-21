@@ -1,5 +1,11 @@
 <template>
-  <p v-if="pokemonDetails" @click="sendPokemonToViewer"><img v-bind:src="pokemonDetails.sprites.front_default"/>{{ pokemonDetails.name }}</p>
+  <span v-if="pokemonDetails">
+    <span @click="sendPokemonToViewer">
+      <img v-bind:src="pokemonDetails.sprites.front_default"/>
+      {{ pokemonDetails.name }}
+    </span>
+    <button class="ml-1" @click="sendPokemonToCurrentParty">Add to party</button>
+  </span>
 </template>
 
 <script>
@@ -11,7 +17,7 @@
         pokemonDetails: null
       }
     },
-    emits: ['pokemon-to-show'],
+    emits: ['pokemon-to-show', 'pokemon-to-add'],
     mounted() {
       if (this.pokemonurl) {
         // To fetch information about the requested pokemon
@@ -21,7 +27,10 @@
     methods: {
       sendPokemonToViewer() {
         this.$emit('pokemon-to-show', this.pokemonDetails);
-      }
+      },
+      sendPokemonToCurrentParty() {
+        this.$emit('pokemon-to-add', this.pokemonDetails);
+      },
     },
     props: ['pokemonurl'],
   }
